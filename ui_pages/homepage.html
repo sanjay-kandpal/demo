@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home Loan Eligibility Calculator - ADHA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-high": "#e8e8e6",
+                "surface-tint": "#506350",
+                "on-secondary": "#ffffff",
+                "primary-container": "#2c3e2d",
+                "on-secondary-fixed": "#261900",
+                "error": "#ba1a1a",
+                "on-secondary-fixed-variant": "#594313",
+                "surface": "#f9f9f7",
+                "inverse-surface": "#2f3130",
+                "surface-bright": "#f9f9f7",
+                "on-primary-fixed-variant": "#394b39",
+                "background": "#f9f9f7",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#0e1f10",
+                "outline": "#747871",
+                "surface-container-lowest": "#ffffff",
+                "on-surface": "#1a1c1b",
+                "tertiary": "#1a271b",
+                "surface-variant": "#e2e3e1",
+                "surface-container-highest": "#e2e3e1",
+                "primary": "#172819",
+                "on-tertiary-fixed-variant": "#3c4a3c",
+                "surface-dim": "#dadad8",
+                "tertiary-container": "#2f3d30",
+                "secondary-fixed-dim": "#e3c286",
+                "on-error": "#ffffff",
+                "surface-container": "#eeeeec",
+                "on-surface-variant": "#434842",
+                "outline-variant": "#c3c8c0",
+                "inverse-primary": "#b7ccb5",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f4f4f2",
+                "secondary-container": "#fddb9d",
+                "tertiary-fixed-dim": "#bbcbb8",
+                "on-tertiary-fixed": "#121f13",
+                "secondary-fixed": "#ffdea3",
+                "error-container": "#ffdad6",
+                "on-secondary-container": "#785f2c",
+                "tertiary-fixed": "#d7e7d4",
+                "primary-fixed-dim": "#b7ccb5",
+                "inverse-on-surface": "#f1f1ef",
+                "primary-fixed": "#d3e8d0",
+                "secondary": "#735b29",
+                "on-primary-container": "#94a993",
+                "on-background": "#1a1c1b",
+                "on-tertiary-container": "#98a896",
+                "on-primary": "#ffffff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin-desktop": "64px",
+                "gutter": "24px",
+                "margin-mobile": "16px",
+                "unit": "4px",
+                "container-max": "1280px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Public Sans"
+                ],
+                "body-lg": [
+                        "Public Sans"
+                ],
+                "label-bold": [
+                        "Public Sans"
+                ],
+                "headline-lg": [
+                        "Public Sans"
+                ],
+                "body-md": [
+                        "Public Sans"
+                ],
+                "headline-display": [
+                        "Public Sans"
+                ],
+                "label-sm": [
+                        "Public Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-bold": [
+                        "14px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-display": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-on-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline z-50">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">ADHA</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav aria-label="Main Navigation" class="hidden md:flex gap-8 items-center">
+<a class="font-label-bold text-label-bold text-on-surface-variant dark:text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-300 ease-in-out py-2" href="#">About Us</a>
+<a aria-current="page" class="font-label-bold text-label-bold text-primary dark:text-primary-fixed-dim border-b-2 border-secondary pb-1 transition-all duration-300 ease-in-out" href="#">Services</a>
+<a class="font-label-bold text-label-bold text-on-surface-variant dark:text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-300 ease-in-out py-2" href="#">Projects</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-label-bold text-label-bold text-primary border-2 border-secondary hover:bg-secondary hover:text-on-secondary transition-colors duration-300 px-4 py-2 rounded">Contact Us</button>
+<button class="font-label-bold text-label-bold text-on-primary bg-primary hover:bg-primary-container transition-colors duration-300 px-6 py-2 rounded">Sign In</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 mix-blend-multiply z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center w-full h-full" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDQK1zlZP4-doz6KD8mWJHBnuNkyziBBlqSsFCCMWrqLCBkAvEUsQUxGFcPU1j5mguU3ePKyL37tB_RM4doPrLXrAvYu3-GdUQVlGY3zAE1M7aKam-NS4kOGZ3fgQo3j0mCUix0ZghRZ9vbjczr2laup1s6yf1EpJwRk18WS7HQia183oJHb-kgCKjLWxydrpgYBU_v1zipXvhSe06S2v2NdB-NJIwYp8or62C9UTLHGP17wcw7l-76_luNW6vVZjLCqpw');"></div>
+</div>
+<div class="relative z-20 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-on-primary">
+<h1 class="font-headline-display text-headline-display mb-6">Home Loan Eligibility Calculator</h1>
+<p class="font-body-lg text-body-lg max-w-2xl mx-auto opacity-90">Find the right housing support tailored for you. Calculate your eligibility instantly and take the first step towards securing your future home in Abu Dhabi.</p>
+</div>
+</section>
+<!-- Calculator Form Section -->
+<section class="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest">
+<div class="max-w-4xl mx-auto bg-surface border border-surface-variant rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-8 md:p-12 relative -mt-32 z-30">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-8 border-b border-surface-variant pb-4">Calculate Your Eligibility</h2>
+<form class="space-y-10" id="eligibility-form">
+<!-- Personal Information -->
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Personal Information</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="fullName">Full Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="fullName" placeholder="e.g. Ahmed Ali" required="" type="text"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="age">Age</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="age" max="80" min="18" placeholder="e.g. 35" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="emiratesId">Emirates ID Number</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="emiratesId" placeholder="784-XXXX-XXXXXXX-X" required="" type="text"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="maritalStatus">Marital Status</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 appearance-none pr-10 transition-all" id="maritalStatus" required="">
+<option disabled="" selected="" value="">Select Status</option>
+<option value="single">Single</option>
+<option value="married">Married</option>
+<option value="divorced">Divorced</option>
+<option value="widowed">Widowed</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="dependents">Number of Dependents</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="dependents" min="0" placeholder="e.g. 2" required="" type="number"/>
+</div>
+</div>
+</div>
+<!-- Income & Employment -->
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Income &amp; Employment</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="employment">Employment Type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 appearance-none pr-10 transition-all" id="employment" required="">
+<option disabled="" selected="" value="">Select Employment</option>
+<option value="government">Government</option>
+<option value="private">Private Sector</option>
+<option value="business">Business Owner</option>
+<option value="retired">Retired</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="employerName">Employer Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="employerName" placeholder="e.g. ADNOC" required="" type="text"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="lengthOfService">Length of Service (Years)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="lengthOfService" min="0" placeholder="e.g. 5" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="income">Monthly Gross Income (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="income" placeholder="e.g. 25000" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="otherIncome">Other Monthly Income (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="otherIncome" placeholder="e.g. 5000" type="number"/>
+</div>
+</div>
+</div>
+<!-- Financial Commitments & Loan Details -->
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Financial Commitments</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="debt">Monthly Debt / Installments (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="debt" placeholder="e.g. 5000" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="existingLoanType">Existing Loan Type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 appearance-none pr-10 transition-all" id="existingLoanType" required="">
+<option disabled="" selected="" value="">Select Type</option>
+<option value="none">None</option>
+<option value="personal">Personal Loan</option>
+<option value="auto">Auto Loan</option>
+<option value="mortgage">Mortgage</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="creditCards">Credit Card Minimums (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="creditCards" placeholder="e.g. 1000" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="requestedLoan">Requested Loan Amount (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="requestedLoan" placeholder="e.g. 1000000" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="downPayment">Down Payment Amount (AED)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 transition-all" id="downPayment" placeholder="e.g. 200000" required="" type="number"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-bold text-label-bold text-on-surface mb-2" for="propertyLocation">Property Location</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4 appearance-none pr-10 transition-all" id="propertyLocation" required="">
+<option disabled="" selected="" value="">Select Location</option>
+<option value="abu-dhabi">Abu Dhabi City</option>
+<option value="al-ain">Al Ain</option>
+<option value="al-dhafra">Al Dhafra</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Nationality Check -->
+<div class="pt-4 pb-2 border-t border-surface-variant">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer appearance-none w-6 h-6 border-2 border-outline rounded checked:bg-primary checked:border-primary focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-all" id="nationality" required="" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary opacity-0 peer-checked:opacity-100 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[18px] font-bold">check</span>
+</div>
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">I confirm that I am a UAE National holding a valid family book (Khulasat Al Qaid) issued by the Emirate of Abu Dhabi.</span>
+</label>
+</div>
+<div class="pt-6">
+<button class="w-full md:w-auto bg-primary hover:bg-primary-container text-on-primary font-label-bold text-label-bold py-4 px-8 rounded transition-all duration-300 flex justify-center items-center gap-2 group" id="calculate-btn" type="button">
+                            Check Eligibility
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Results Area (Hidden Initially) -->
+<div class="hidden mt-10 p-6 rounded-lg border-l-4" id="results-area">
+<!-- Dynamic content will be injected here via JS -->
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-on-surface w-full bottom-0">
+<div class="py-12 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between gap-8">
+<div class="flex flex-col gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">ADHA</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant max-w-xs">Empowering citizens through sustainable housing solutions.</p>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex flex-wrap gap-6 md:justify-end">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:underline transition-all opacity-90 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:underline transition-all opacity-90 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:underline transition-all opacity-90 hover:opacity-100" href="#">Accessibility</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:underline transition-all opacity-90 hover:opacity-100" href="#">Sitemap</a>
+</div>
+<div class="md:text-right">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant">© 2024 Abu Dhabi Housing Authority. All rights reserved.</p>
+</div>
+</div>
+</div>
+</footer>
+<!-- Interactive Logic -->
+<script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            // Basic validation
+            const form = document.getElementById('eligibility-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const income = parseFloat(document.getElementById('income').value);
+            const debt = parseFloat(document.getElementById('debt').value);
+            const employment = document.getElementById('employment').value;
+            const age = parseInt(document.getElementById('age').value);
+            
+            const resultsArea = document.getElementById('results-area');
+            
+            // Simple mock logic for demonstration
+            // Debt to burden ratio < 50% roughly
+            const isEligible = (debt / income) < 0.5 && age >= 21 && age <= 60;
+
+            resultsArea.classList.remove('hidden', 'border-error', 'bg-error-container/20', 'border-primary', 'bg-primary-container/10');
+            
+            if (isEligible) {
+                resultsArea.classList.add('border-primary', 'bg-primary-container/10');
+                resultsArea.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-[32px] text-primary fill">check_circle</span>
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary mb-2">Initial Eligibility Confirmed</h3>
+                            <p class="font-body-md text-on-surface-variant mb-4">Based on the details provided, you meet the initial criteria for ADHA home loan support. Your debt-to-burden ratio falls within the acceptable range.</p>
+                            <button class="bg-primary hover:bg-primary-container text-on-primary font-label-bold py-2 px-6 rounded transition-colors">Start Formal Application</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultsArea.classList.add('border-error', 'bg-error-container/20');
+                resultsArea.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="material-symbols-outlined text-[32px] text-error fill">info</span>
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-error mb-2">Further Review Required</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">Based on the details provided, your current profile requires further consultation. Common reasons include:</p>
+                            <ul class="list-disc list-inside font-body-md text-on-surface-variant ml-2 mb-4">
+                                <li>Debt-to-burden ratio exceeding 50%</li>
+                                <li>Age constraints for specific loan durations</li>
+                            </ul>
+                            <button class="border-2 border-secondary text-secondary hover:bg-secondary hover:text-on-secondary font-label-bold py-2 px-6 rounded transition-colors">Book a Consultation</button>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body></html>

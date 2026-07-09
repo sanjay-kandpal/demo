@@ -40,3 +40,4 @@ npm run start
 - Main page entry point: `app/page.js`
 - Local development URL: [http://localhost:3000](http://localhost:3000)
 - Build sanity check was completed successfully after setup
+- The default Next.js starter homepage has been replaced with the ADHA Home Loan Eligibility Calculator UI from `ui_pages/homepage.html`, now implemented as a React page in `app/page.js`
