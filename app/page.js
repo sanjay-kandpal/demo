@@ -56,9 +56,13 @@ export default function Home() {
         <header className="bg-surface w-full top-0 sticky border-b border-outline-variant z-50">
           <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
             <div className="flex items-center gap-2">
-              <span className="font-headline-md text-headline-md font-bold text-primary">
-                ADHA
-              </span>
+              <a className="skip-contrast" href="/en" aria-label="ADHA">
+                <img
+                  src="/Adha_Logo.png"
+                  alt="ADHA"
+                  className="h-14 w-auto"
+                />
+              </a>
             </div>
             <nav aria-label="Main Navigation" className="hidden md:flex gap-8 items-center">
               <a className="font-label-bold text-label-bold text-on-surface-variant hover:text-secondary transition-colors duration-300 ease-in-out py-2" href="#">About Us</a>
@@ -129,7 +133,14 @@ export default function Home() {
                 <div className="pt-6">
                   <button className="w-full md:w-auto bg-primary hover:bg-primary-container text-on-primary font-label-bold text-label-bold py-4 px-8 rounded transition-all duration-300 flex justify-center items-center gap-2 group" id="calculate-btn" type="button" onClick={calculateEligibility}>
                     Check Eligibility
-                    <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    <svg
+                      aria-hidden="true"
+                      className="h-5 w-5 shrink-0 group-hover:translate-x-1 transition-transform"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                    </svg>
                   </button>
                 </div>
               </form>
