@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Home Loan Eligibility Calculator - ADHA",
-  description: "ADHA home loan eligibility calculator homepage.",
+  title: "ADHA Admin Portal",
+  description: "ADHA home loan application review portal.",
 };
 
 export default function RootLayout({ children }) {
