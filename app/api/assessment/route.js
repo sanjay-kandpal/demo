@@ -56,6 +56,7 @@ export async function POST(request) {
     return NextResponse.json({ error: "Validation failed.", details: errors }, { status: 400 });
   }
 
-  const result = assess(input);
+  const configOverride = body.config && typeof body.config === "object" ? body.config : {};
+  const result = assess(input, configOverride);
   return NextResponse.json(result);
 }

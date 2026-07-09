@@ -5,13 +5,13 @@ import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
   { href: "/portal", label: "Dashboard", icon: "dashboard" },
+  { href: "/portal/settings", label: "Engine Settings", icon: "tune" },
 ];
 
 export default function PortalLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [email, setEmail] = useState("");
-  const [ready, setReady] = useState(false);
+  const [session, setSession] = useState({ ready: false, email: "" });
 
   useEffect(() => {
     const loggedIn = sessionStorage.getItem("adha_admin_logged_in");
@@ -19,9 +19,16 @@ export default function PortalLayout({ children }) {
       router.replace("/");
       return;
     }
-    setEmail(sessionStorage.getItem("adha_admin_email") || "admin@adha.gov.ae");
-    setReady(true);
+    // Auth state lives in sessionStorage (an external system); syncing it
+    // into component state on mount is exactly this effect's job.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSession({
+      ready: true,
+      email: sessionStorage.getItem("adha_admin_email") || "admin@adha.gov.ae",
+    });
   }, [router]);
+
+  const { ready, email } = session;
 
   const handleLogout = () => {
     sessionStorage.removeItem("adha_admin_logged_in");

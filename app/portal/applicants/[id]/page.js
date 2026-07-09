@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getApplicantById } from "@/lib/applicants";
+import { loadEngineConfigOverride } from "@/lib/assessment/engineConfigStorage";
 
 const vulnerabilityOptions = [
   { id: "disability", label: "Person with disability in household" },
@@ -139,6 +140,7 @@ export default function ApplicantDetailPage() {
         body: JSON.stringify({
           ...values,
           vulnerabilityFlagCount: vulnerabilities.length,
+          config: loadEngineConfigOverride() || undefined,
         }),
       });
       const data = await response.json();
@@ -184,10 +186,6 @@ export default function ApplicantDetailPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
-          <div className="bg-surface-container-lowest rounded-lg p-4">
-            <p className="text-label-sm text-on-surface-variant">Age</p>
-            <p className="font-label-bold text-label-bold text-on-surface">{applicant.age}</p>
-          </div>
           <div className="bg-surface-container-lowest rounded-lg p-4">
             <p className="text-label-sm text-on-surface-variant">Employment</p>
             <p className="font-label-bold text-label-bold text-on-surface">
@@ -240,10 +238,6 @@ export default function ApplicantDetailPage() {
             <div>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">Personal &amp; Household</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="flex flex-col">
-                  <label className="font-label-bold text-label-bold text-on-surface mb-2" htmlFor="age">Age</label>
-                  <input className="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4" id="age" min="18" max="80" required type="number" value={values.age} onChange={updateValue} />
-                </div>
                 <div className="flex flex-col">
                   <label className="font-label-bold text-label-bold text-on-surface mb-2" htmlFor="dependents">Number of Dependants</label>
                   <input className="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4" id="dependents" min="0" required type="number" value={values.dependents} onChange={updateValue} />
@@ -361,7 +355,7 @@ export default function ApplicantDetailPage() {
                 <span className={`material-symbols-outlined text-[32px] ${style.iconClass}`}>{style.icon}</span>
                 <div>
                   <h3 className={`font-headline-md text-headline-md mb-1 ${style.title}`}>{result.decision.decision}</h3>
-                  <p className="text-body-md text-on-surface-variant">{result.explanation.summary}</p>
+                  <p className="text-body-md text-on-surface-variant font-bold">{result.explanation.summary}</p>
                 </div>
               </div>
 
