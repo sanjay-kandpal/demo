@@ -5,7 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
   { href: "/portal", label: "Dashboard", icon: "dashboard" },
-  { href: "/portal/settings", label: "Engine Settings", icon: "tune" },
+  { href: "/portal/assessment", label: "Beneficiary Assessment", icon: "fact_check" },
+  { href: "/portal/settings", label: "Decision Engine Settings", icon: "tune" },
 ];
 
 export default function PortalLayout({ children }) {

@@ -222,7 +222,7 @@ export default function EngineSettingsPage() {
     <div>
       <div className="mb-8 flex items-start justify-between flex-wrap gap-4">
         <div>
-          <h1 className="font-headline-lg text-headline-lg text-primary mb-2">Engine Settings</h1>
+          <h1 className="font-headline-lg text-headline-lg text-primary mb-2">Decision Engine Settings</h1>
           <p className="text-body-md text-on-surface-variant max-w-2xl">
             Tune the financial-feasibility and social-priority policy parameters used by the
             decision engine. Changes apply the next time an assessment is run or recalculated.
