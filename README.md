@@ -46,3 +46,6 @@ npm run start
 - The header logo image is now served locally from `public/Adha_Logo.png` to avoid external path 404 issues in local dev
 - Material Symbols icons (e.g. `arrow_forward` on the Check Eligibility button) now render correctly via `font-family` on `.material-symbols-outlined` in `app/globals.css`
 - The Check Eligibility button uses an inline SVG arrow icon instead of Material Symbols text, so the forward arrow always renders as a symbol
+- Admin portal sidebar: **Dashboard** shows the applicants table at `/portal`; a **+** button beside Dashboard expands/collapses **Beneficiary Assessment** underneath
+- Production build no longer depends on `next/font/google` Geist fonts; UI typography uses **Public Sans** from `app/globals.css`
+- Portal layout uses a server `layout.js` + client `PortalShell.js` to avoid Next.js React Client Manifest errors on `/portal/settings`

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { mergeConfig } from "@/lib/assessment/engine";
 import {
   loadEngineConfigOverride,
@@ -164,13 +164,18 @@ function WeightSum({ sum }) {
   );
 }
 
-export default function EngineSettingsPage() {
-  const initial = useMemo(() => {
-    const saved = loadEngineConfigOverride();
-    const merged = mergeConfig(saved || {});
-    return { display: toDisplay(merged), incomeBandTable: merged.incomeBandTable, housingSituationTable: merged.housingSituationTable };
-  }, []);
+function buildInitialState() {
+  const saved = loadEngineConfigOverride();
+  const merged = mergeConfig(saved || {});
+  return {
+    display: toDisplay(merged),
+    incomeBandTable: merged.incomeBandTable,
+    housingSituationTable: merged.housingSituationTable,
+  };
+}
 
+export default function EngineSettingsPage() {
+  const [initial] = useState(buildInitialState);
   const [d, setD] = useState(initial.display);
   const [status, setStatus] = useState(null);
 
