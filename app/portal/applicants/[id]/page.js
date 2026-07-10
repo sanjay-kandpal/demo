@@ -228,7 +228,8 @@ export default function ApplicantDetailPage() {
       </div>
 
       {proceeded && (
-        <div className="bg-surface border border-surface-variant rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-8 md:p-12">
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_420px] gap-8 items-start">
+          <div className="bg-surface border border-surface-variant rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-8">
           <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Engine Assessment</h2>
           <p className="text-body-md text-on-surface-variant mb-8">
             Review and adjust the applicant&apos;s details, then recalculate to see the updated decision.
@@ -237,7 +238,7 @@ export default function ApplicantDetailPage() {
           <form className="space-y-10" ref={formRef}>
             <div>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">Personal &amp; Household</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className="font-label-bold text-label-bold text-on-surface mb-2" htmlFor="dependents">Number of Dependants</label>
                   <input className="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4" id="dependents" min="0" required type="number" value={values.dependents} onChange={updateValue} />
@@ -256,7 +257,7 @@ export default function ApplicantDetailPage() {
 
             <div>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">Income &amp; Employment</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className="font-label-bold text-label-bold text-on-surface mb-2" htmlFor="employment">Employment Type</label>
                   <select className="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4" id="employment" required value={values.employment} onChange={updateValue}>
@@ -283,7 +284,7 @@ export default function ApplicantDetailPage() {
 
             <div>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">Debt &amp; Requested Financing</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className="font-label-bold text-label-bold text-on-surface mb-2" htmlFor="existingMonthlyDebt">Existing Monthly Debt (AED)</label>
                   <input className="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-md py-3 px-4" id="existingMonthlyDebt" type="number" value={values.existingMonthlyDebt} onChange={updateValue} />
@@ -342,82 +343,98 @@ export default function ApplicantDetailPage() {
               </button>
             </div>
           </form>
+          </div>
 
-          {error && (
-            <div className="mt-8 p-4 rounded-lg border-l-4 border-error bg-error-container/20 text-on-surface-variant">
-              {error}
-            </div>
-          )}
-
-          {result && (
-            <div className={`mt-10 p-6 md:p-8 rounded-lg border-l-4 ${style.border} ${style.bg}`}>
-              <div className="flex items-start gap-4 mb-6">
-                <span className={`material-symbols-outlined text-[32px] ${style.iconClass}`}>{style.icon}</span>
-                <div>
-                  <h3 className={`font-headline-md text-headline-md mb-1 ${style.title}`}>{result.decision.decision}</h3>
-                  <p className="text-body-md text-on-surface-variant font-bold">{result.explanation.summary}</p>
-                </div>
+          {/* Sticky decision panel: stays in view so the outcome never needs
+              scrolling to find. Scrolls internally if taller than the viewport. */}
+          <div className="xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto space-y-6">
+            {error && (
+              <div className="p-4 rounded-lg border-l-4 border-error bg-error-container/20 text-on-surface-variant">
+                {error}
               </div>
+            )}
 
-              {result.eligible ? (
-                <>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="bg-surface-container-lowest rounded-lg p-4 text-center">
-                      <p className="text-label-sm text-on-surface-variant">Grant</p>
-                      <p className="font-headline-md text-headline-md text-primary">{result.decision.grantPercent}%</p>
-                    </div>
-                    <div className="bg-surface-container-lowest rounded-lg p-4 text-center">
-                      <p className="text-label-sm text-on-surface-variant">Target DBR</p>
-                      <p className="font-headline-md text-headline-md text-primary">
-                        {result.decision.targetDbr != null ? `${Math.round(result.decision.targetDbr * 100)}%` : "n/a"}
-                      </p>
-                    </div>
-                    <div className="bg-surface-container-lowest rounded-lg p-4 text-center">
-                      <p className="text-label-sm text-on-surface-variant">Tenure</p>
-                      <p className="font-headline-md text-headline-md text-primary">{result.decision.tenure}</p>
-                    </div>
-                    <div className="bg-surface-container-lowest rounded-lg p-4 text-center">
-                      <p className="text-label-sm text-on-surface-variant">Applied tenure</p>
-                      <p className="font-headline-md text-headline-md text-primary">{result.decision.appliedTenureYears}y</p>
-                    </div>
+            {result ? (
+              <div className={`p-6 rounded-xl border-l-4 ${style.border} ${style.bg}`}>
+                <div className="flex items-start gap-3 mb-5">
+                  <span className={`material-symbols-outlined text-[28px] ${style.iconClass}`}>{style.icon}</span>
+                  <div>
+                    <h3 className={`font-headline-md text-headline-md mb-1 ${style.title}`}>{result.decision.decision}</h3>
+                    <p className="text-label-sm text-on-surface-variant font-bold">{result.explanation.summary}</p>
                   </div>
+                </div>
 
-                  <p className="text-body-md text-on-surface-variant mb-8">
-                    <span className="font-label-bold">Conditions:</span> {result.decision.conditions}
-                  </p>
+                {result.eligible ? (
+                  <>
+                    <div className="grid grid-cols-2 gap-3 mb-5">
+                      <div className="bg-surface-container-lowest rounded-lg p-3 text-center">
+                        <p className="text-label-sm text-on-surface-variant">Grant</p>
+                        <p className="font-headline-md text-headline-md text-primary">{result.decision.grantPercent}%</p>
+                      </div>
+                      <div className="bg-surface-container-lowest rounded-lg p-3 text-center">
+                        <p className="text-label-sm text-on-surface-variant">Target DBR</p>
+                        <p className="font-headline-md text-headline-md text-primary">
+                          {result.decision.targetDbr != null ? `${Math.round(result.decision.targetDbr * 100)}%` : "n/a"}
+                        </p>
+                      </div>
+                      <div className="bg-surface-container-lowest rounded-lg p-3 text-center">
+                        <p className="text-label-sm text-on-surface-variant">Tenure</p>
+                        <p className="font-headline-md text-headline-md text-primary">{result.decision.tenure}</p>
+                      </div>
+                      <div className="bg-surface-container-lowest rounded-lg p-3 text-center">
+                        <p className="text-label-sm text-on-surface-variant">Applied tenure</p>
+                        <p className="font-headline-md text-headline-md text-primary">{result.decision.appliedTenureYears}y</p>
+                      </div>
+                    </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <h4 className="font-label-bold text-label-bold text-on-surface mb-3">
-                        Financial Feasibility — {result.financial.score} ({result.financial.band})
-                      </h4>
-                      <ScoreRow label="DBR (post-instalment)" value={`${Math.round(result.financial.components.dbr.value * 100)}%`} score={result.financial.components.dbr.score} weight={result.financial.components.dbr.weight} />
-                      <ScoreRow label="Residual income / member" value={`AED ${result.financial.components.residualIncomePerMember.value}`} score={result.financial.components.residualIncomePerMember.score} weight={result.financial.components.residualIncomePerMember.weight} />
-                      <ScoreRow label="AECB conduct" value={result.financial.components.aecbConduct.value} score={result.financial.components.aecbConduct.score} weight={result.financial.components.aecbConduct.weight} />
-                      <ScoreRow label="Income stability" value={result.financial.components.incomeStability.value} score={result.financial.components.incomeStability.score} weight={result.financial.components.incomeStability.weight} />
-                      <ScoreRow label="Stress resilience" value={`stressed DBR ${Math.round(result.financial.components.stressResilience.value * 100)}%`} score={result.financial.components.stressResilience.score} weight={result.financial.components.stressResilience.weight} />
+                    <p className="text-label-sm text-on-surface-variant mb-5">
+                      <span className="font-label-bold">Conditions:</span> {result.decision.conditions}
+                    </p>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="font-label-bold text-label-bold text-on-surface mb-3">
+                          Financial Feasibility — {result.financial.score} ({result.financial.band})
+                        </h4>
+                        <ScoreRow label="DBR (post-instalment)" value={`${Math.round(result.financial.components.dbr.value * 100)}%`} score={result.financial.components.dbr.score} weight={result.financial.components.dbr.weight} />
+                        <ScoreRow label="Residual income / member" value={`AED ${result.financial.components.residualIncomePerMember.value}`} score={result.financial.components.residualIncomePerMember.score} weight={result.financial.components.residualIncomePerMember.weight} />
+                        <ScoreRow label="AECB conduct" value={result.financial.components.aecbConduct.value} score={result.financial.components.aecbConduct.score} weight={result.financial.components.aecbConduct.weight} />
+                        <ScoreRow label="Income stability" value={result.financial.components.incomeStability.value} score={result.financial.components.incomeStability.score} weight={result.financial.components.incomeStability.weight} />
+                        <ScoreRow label="Stress resilience" value={`stressed DBR ${Math.round(result.financial.components.stressResilience.value * 100)}%`} score={result.financial.components.stressResilience.score} weight={result.financial.components.stressResilience.weight} />
+                      </div>
+                      <div>
+                        <h4 className="font-label-bold text-label-bold text-on-surface mb-3">
+                          Social Priority — {result.social.score} ({result.social.band})
+                        </h4>
+                        <ScoreRow label="Housing situation" value={result.social.components.housingSituation.value} score={result.social.components.housingSituation.score} weight={result.social.components.housingSituation.weight} />
+                        <ScoreRow label="Dependants" value={result.social.components.dependants.value} score={result.social.components.dependants.score} weight={result.social.components.dependants.weight} />
+                        <ScoreRow label="Income band" value={result.social.components.incomeBand.value} score={result.social.components.incomeBand.score} weight={result.social.components.incomeBand.weight} />
+                        <ScoreRow label="Vulnerability flags" value={result.social.components.vulnerabilityFlags.value} score={result.social.components.vulnerabilityFlags.score} weight={result.social.components.vulnerabilityFlags.weight} />
+                        <ScoreRow label="Expected impact" value={result.social.components.expectedImpact.value ? "First-time" : "Repeat"} score={result.social.components.expectedImpact.score} weight={result.social.components.expectedImpact.weight} />
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-label-bold text-label-bold text-on-surface mb-3">
-                        Social Priority — {result.social.score} ({result.social.band})
-                      </h4>
-                      <ScoreRow label="Housing situation" value={result.social.components.housingSituation.value} score={result.social.components.housingSituation.score} weight={result.social.components.housingSituation.weight} />
-                      <ScoreRow label="Dependants" value={result.social.components.dependants.value} score={result.social.components.dependants.score} weight={result.social.components.dependants.weight} />
-                      <ScoreRow label="Income band" value={result.social.components.incomeBand.value} score={result.social.components.incomeBand.score} weight={result.social.components.incomeBand.weight} />
-                      <ScoreRow label="Vulnerability flags" value={result.social.components.vulnerabilityFlags.value} score={result.social.components.vulnerabilityFlags.score} weight={result.social.components.vulnerabilityFlags.weight} />
-                      <ScoreRow label="Expected impact" value={result.social.components.expectedImpact.value ? "First-time" : "Repeat"} score={result.social.components.expectedImpact.score} weight={result.social.components.expectedImpact.weight} />
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <ul className="list-disc list-inside text-body-md text-on-surface-variant space-y-1">
-                  {result.gates.failures.map((failure) => (
-                    <li key={failure}>{failure}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
+                  </>
+                ) : (
+                  <ul className="list-disc list-inside text-body-md text-on-surface-variant space-y-1">
+                    {result.gates.failures.map((failure) => (
+                      <li key={failure}>{failure}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <div className="bg-surface border border-surface-variant rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-8 text-center">
+                <span className="material-symbols-outlined text-[40px] text-on-surface-variant/60 mb-3">gavel</span>
+                <p className="font-label-bold text-label-bold text-on-surface mb-1">
+                  {loading ? "Recalculating…" : "Decision appears here"}
+                </p>
+                <p className="text-label-sm text-on-surface-variant">
+                  Adjust the applicant&apos;s details and click Recalculate Decision — the outcome
+                  shows here without scrolling.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
