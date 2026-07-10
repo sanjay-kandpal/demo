@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { settingsSections } from "./settings/sections";
 
 const navItems = [
+  { key: "overview", href: "/portal/overview", label: "Overview", icon: "insights" },
+  { key: "settings", href: "/portal/settings", label: "Decision Engine Configuration", icon: "tune" },
   {
     key: "dashboard",
     href: "/portal",
@@ -19,20 +20,6 @@ const navItems = [
     children: [
       { href: "/portal/assessment", label: "Beneficiary Assessment", icon: "fact_check" },
     ],
-  },
-  {
-    key: "settings",
-    href: "/portal/settings",
-    label: "Decision Engine Settings",
-    icon: "tune",
-    // Clicking into the settings area reveals the section list automatically.
-    autoExpand: true,
-    sectionMatch: (pathname) => pathname.startsWith("/portal/settings"),
-    children: settingsSections.map((section) => ({
-      href: `/portal/settings/${section.slug}`,
-      label: section.navLabel,
-      icon: section.icon,
-    })),
   },
 ];
 
