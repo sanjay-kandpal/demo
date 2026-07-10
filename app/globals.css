@@ -69,6 +69,22 @@ a {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
+/* Wizard step panels (see app/portal/assessment) slide in on step change. */
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-enter {
+  animation: step-in 300ms ease-out;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
